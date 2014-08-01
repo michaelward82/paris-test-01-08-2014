@@ -1,0 +1,9 @@
+# Configure idiom / paris
+ORM::configure(
+    array(
+        'connection_string' => '',
+        'username'          => '',
+        'password'          => '',
+        'logging'           => true
+    )
+);
