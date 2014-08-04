@@ -32,6 +32,9 @@ fputs(STDOUT, ORM::get_last_query() . "\n");
 Model::factory('\\name\\space\\ShortTableName')->find_many();
 fputs(STDOUT, ORM::get_last_query() . "\n");
 
+// Invalid - there is no ShortTableName class. Namespace is required.
+// Model::factory('ShortTableName')->find_many();
+
 \name\space\LongTableName::find_many();
 fputs(STDOUT, ORM::get_last_query() . "\n");
 
@@ -41,6 +44,8 @@ fputs(STDOUT, ORM::get_last_query() . "\n");
 Model::factory('\\name\\space\\LongTableName')->find_many();
 fputs(STDOUT, ORM::get_last_query() . "\n");
 
+
+// Prefix
 Model::$auto_prefix_models = '\\name\\space\\';
 
 Model::factory('ShortTableName')->find_many();
@@ -48,3 +53,6 @@ fputs(STDOUT, ORM::get_last_query() . "\n");
 
 Model::factory('LongTableName')->find_many();
 fputs(STDOUT, ORM::get_last_query() . "\n");
+
+// Invalid - looks for \name\space\name\space\User
+// LongTableName::find_many();
