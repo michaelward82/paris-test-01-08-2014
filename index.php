@@ -1,6 +1,6 @@
 <?php
 
-namespace testing;
+namespace name\space;
 
 use MockPDO;
 use Model;
@@ -9,11 +9,11 @@ use ORM;
 require 'vendor/autoload.php';
 require 'mock-pdo.php';
 
-class User extends Model {
+class ShortTableName extends Model {
     public static $_table_use_short_name = true;
 }
 
-class Other extends Model {
+class LongTableName extends Model {
 }
 
 // Enable logging
@@ -23,8 +23,28 @@ ORM::configure('logging', true);
 $db = new MockPDO('sqlite::memory:');
 ORM::set_db($db);
 
-User::find_many();
+\name\space\ShortTableName::find_many();
 fputs(STDOUT, ORM::get_last_query() . "\n");
 
-Other::find_many();
+ShortTableName::find_many();
+fputs(STDOUT, ORM::get_last_query() . "\n");
+
+Model::factory('\\name\\space\\ShortTableName')->find_many();
+fputs(STDOUT, ORM::get_last_query() . "\n");
+
+\name\space\LongTableName::find_many();
+fputs(STDOUT, ORM::get_last_query() . "\n");
+
+LongTableName::find_many();
+fputs(STDOUT, ORM::get_last_query() . "\n");
+
+Model::factory('\\name\\space\\LongTableName')->find_many();
+fputs(STDOUT, ORM::get_last_query() . "\n");
+
+Model::$auto_prefix_models = '\\name\\space\\';
+
+Model::factory('ShortTableName')->find_many();
+fputs(STDOUT, ORM::get_last_query() . "\n");
+
+Model::factory('LongTableName')->find_many();
 fputs(STDOUT, ORM::get_last_query() . "\n");
